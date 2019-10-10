@@ -23,7 +23,6 @@ class ListaLivros : AppCompatActivity() {
 
 
     var livros = ArrayList<Livro>()
-
     var cont = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,10 +107,10 @@ class ListaLivros : AppCompatActivity() {
     }
 
     fun novoLivro() {
-        txtTitulo.text = livros.get(cont).Titulo.toString()
-        txtAutor.text = livros.get(cont).Autor.toString()
-        txtAno.text = livros.get(cont).Ano.toString()
-        txtNota.text = livros.get(cont).Nota.toString()
+        //txtTitulo.text = livros.get(cont).Titulo.toString()
+        //txtAutor.text = livros.get(cont).Autor.toString()
+        //txtAno.text = livros.get(cont).Ano.toString()
+        //txtNota.text = livros.get(cont).Nota.toString()
         voltarProximo()
 
     }

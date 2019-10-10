@@ -23,6 +23,11 @@ class CadastrarLivro : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastrar_livro)
 
+        btnCancelar.setOnClickListener {
+            Toast.makeText(this, "Cancela operação e retorna a tela inicial", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
         btnGravar.setOnClickListener {
             cadastrarLIvro()
         }
@@ -40,11 +45,7 @@ class CadastrarLivro : AppCompatActivity() {
 
         Toast.makeText(this, "Livro Cadastrado com sucesso!", Toast.LENGTH_SHORT).show()
 
-        btnCancelar.setOnClickListener {
-            Toast.makeText(this, "Cancela operação e retorna a tela inicial", Toast.LENGTH_SHORT)
-                .show()
-            finish()
-        }
+
             txtNome.setText("") //tela cadastro de livros limpa os campos
             txtAutor.setText("")
             txtAno.setText("")
