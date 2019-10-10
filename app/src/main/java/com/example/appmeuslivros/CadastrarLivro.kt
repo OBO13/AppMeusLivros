@@ -1,9 +1,7 @@
 package com.example.appmeuslivros
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.room.Room
 import kotlinx.android.synthetic.main.activity_cadastrar_livro.*
@@ -15,7 +13,7 @@ class CadastrarLivro : AppCompatActivity() {
         Room.databaseBuilder(
             this,
             AppDataBase::class.java,
-            "banco-livro"
+            "livro"
         )
             .allowMainThreadQueries()
             .build()
@@ -25,43 +23,34 @@ class CadastrarLivro : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastrar_livro)
 
-        btnInsert.setOnClickListener {
+        btnGravar.setOnClickListener {
             cadastrarLIvro()
         }
-
-        btnVoltar.setOnClickListener {
-            Toast.makeText(this, "Retorno a tela inicial", Toast.LENGTH_SHORT).show()
-            finish()
-        }
-
-
     }
-
-    fun cadastrarLIvro() {
+        fun cadastrarLIvro() {
         try {
-            db.livroDAO().inserir(
-                Livro(
-                    txtNome.text.toString(),
-                    txtAutor.text.toString(),
-                    Integer.parseInt(txtAno.text.toString()),
-                    ratingBar.rating
-                )
-            )
+            db.livroDAO().inserir(Livro(txtNome.text.toString(), txtAutor.text.toString(), Integer.parseInt(txtAno.text.toString()), ratingBar.rating))
+
         } catch (e: java.lang.NumberFormatException) {
-            db.livroDAO().inserir(
-                Livro(
-                    txtNome.text.toString(),
-                    txtAutor.text.toString(),
-                    0,
-                    ratingBar.rating
+
+            db.livroDAO().inserir(Livro(txtNome.text.toString(), txtAutor.text.toString(), 0, ratingBar.rating
                 )
             )
         }
+
         Toast.makeText(this, "Livro Cadastrado com sucesso!", Toast.LENGTH_SHORT).show()
 
-        txtNome.setText("")
-        txtAutor.setText("")
-        txtAno.setText("")
-        ratingBar.rating = 0f
+        btnCancelar.setOnClickListener {
+            Toast.makeText(this, "Cancela operação e retorna a tela inicial", Toast.LENGTH_SHORT)
+                .show()
+            finish()
+        }
+            txtNome.setText("") //tela cadastro de livros limpa os campos
+            txtAutor.setText("")
+            txtAno.setText("")
+            ratingBar.rating = 0f
+
+
     }
+
 }
