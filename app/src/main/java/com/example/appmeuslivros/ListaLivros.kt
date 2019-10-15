@@ -1,10 +1,13 @@
 package com.example.appmeuslivros
 
+
+import android.app.Dialog
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.room.Room
 import kotlinx.android.synthetic.main.activity_lista_livros.*
 
@@ -21,7 +24,6 @@ class ListaLivros : AppCompatActivity() {
             .build()
     }
 
-
     var livros = ArrayList<Livro>()
     var cont = 0
 
@@ -29,21 +31,6 @@ class ListaLivros : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_livros)
 
-
-        btnDepois.setOnClickListener {
-            cont++
-            mudarLivro()
-        }
-
-        btnAntes.setOnClickListener {
-            cont--
-            mudarLivro()
-        }
-
-        //buttonExcluir.setOnClickListener {
-            //db.livroDao().deletar(livros.get(cont))
-            //onResume()
-        //}
 /*
         autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
             var selected = adapterView.getItemAtPosition(i).toString()
@@ -54,17 +41,41 @@ class ListaLivros : AppCompatActivity() {
             txtAutor.setText(livro.Autor.toString())
             txtAno.setText(livro.Ano.toString())
             txtNota.setText(livro.Nota.toString())
-
         }
+
 */
-        mudarLivro()
-        //autoComplete()
+        btnAntes.setOnClickListener {
+            cont--
+            novoLivro()
+        }
 
+        btnDepois.setOnClickListener {
+            cont++
+            novoLivro()
+        }
 
+        btnDeletar.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Atenção!")
+            builder.setMessage("Você tem certeza que deseja excluir o registro?")
+
+            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                Toast.makeText(applicationContext, android.R.string.yes, Toast.LENGTH_SHORT).show()
+                if (livros.size > 0) {
+                    db.livroDAO().deletar(livros.get(cont))
+                    onResume()
+                } else {
+                    limpar()
+                }
+            }
+            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                Toast.makeText(applicationContext, android.R.string.no, Toast.LENGTH_SHORT).show()
+            }
+            builder.show()
+        }
     }
 
-    fun mudarLivro() {
-
+    fun mostrarLivro() {
         if (livros.size > 0) {
             txtTitulo.text = livros.get(cont).Titulo
             txtAutor.text = livros.get(cont).Autor
@@ -73,31 +84,16 @@ class ListaLivros : AppCompatActivity() {
 
             btnAntes.visibility = View.VISIBLE
             btnDepois.visibility = View.VISIBLE
-            //buttonExcluir.visibility = View.VISIBLE
-            novoLivro()
+            btnDeletar.visibility = View.VISIBLE
+            //novoLivro()
         } else {
             btnAntes.visibility = View.INVISIBLE
             btnDepois.visibility = View.INVISIBLE
-            //buttonExcluir.visibility = View.INVISIBLE
+            btnDeletar.visibility = View.INVISIBLE
             limpar()
         }
 
     }
-
-    fun voltarProximo() {
-        if (cont + 1 >= livros.size) {
-            btnDepois.visibility = View.INVISIBLE
-        } else {
-            btnDepois.visibility = View.VISIBLE
-        }
-
-        if (cont - 1 < 0) {
-            btnAntes.visibility = View.INVISIBLE
-        } else {
-            btnAntes.visibility = View.VISIBLE
-        }
-    }
-
 
     fun limpar() {
         txtTitulo.text = ""
@@ -106,15 +102,47 @@ class ListaLivros : AppCompatActivity() {
         txtNota.text = ""
     }
 
+    fun navegarregistros() {
+        if (cont + 1 >= livros.size) {
+            btnDepois.visibility = View.INVISIBLE
+            Toast.makeText(this, "Não existe mais registros a frente!", Toast.LENGTH_SHORT).show()
+        } else {
+            btnDepois.visibility = View.VISIBLE
+        }
+
+        if (cont - 1 < 0) {
+            btnAntes.visibility = View.INVISIBLE
+            Toast.makeText(this, "Não existe mais registros anterior!", Toast.LENGTH_SHORT).show()
+        } else {
+            btnAntes.visibility = View.VISIBLE
+        }
+    }
+
     fun novoLivro() {
-        //txtTitulo.text = livros.get(cont).Titulo.toString()
-        //txtAutor.text = livros.get(cont).Autor.toString()
-        //txtAno.text = livros.get(cont).Ano.toString()
-        //txtNota.text = livros.get(cont).Nota.toString()
-        voltarProximo()
+        txtTitulo.text = livros.get(cont).Titulo.toString()
+        txtAutor.text = livros.get(cont).Autor.toString()
+        txtAno.text = livros.get(cont).Ano.toString()
+        txtNota.text = livros.get(cont).Nota.toString()
+        navegarregistros()
 
     }
-/*
+
+    fun Dialogo(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Androidly Alert")
+        builder.setMessage("We have a message")
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            Toast.makeText(applicationContext,
+                android.R.string.yes, Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            Toast.makeText(applicationContext,
+                android.R.string.no, Toast.LENGTH_SHORT).show()
+        }
+        builder.show()
+    }
+
+    /*
     fun autoComplete() {
         var livrosAutoComplete = arrayOfNulls<String>(livros.size)
 
@@ -123,7 +151,7 @@ class ListaLivros : AppCompatActivity() {
         }
 
         var livrosToListAdapter =
-            ArrayAdapter<String>(this, R.layout.activity_main2, livrosAutoComplete)
+            ArrayAdapter<String>(this, R.layout.activity_cadastrar_livro, livrosAutoComplete)
 
         autoCompleteTextView.setAdapter(livrosToListAdapter)
     }
@@ -132,14 +160,14 @@ class ListaLivros : AppCompatActivity() {
         super.onResume()
         livros.clear()//limpar lista
 
-        db.livroDAO().listAll().forEach { // atualizar lista
+        db.livroDAO().listAll().forEach {
+            // atualizar lista
             livros.add(it)
         }
 
         cont = 0
-        mudarLivro()
+        mostrarLivro()
         //autoComplete()
     }
-
 
 }

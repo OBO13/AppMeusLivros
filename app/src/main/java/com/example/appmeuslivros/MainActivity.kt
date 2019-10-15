@@ -20,5 +20,11 @@ class MainActivity : AppCompatActivity() {
         btnListar.setOnClickListener {
             startActivity(Intent(this, ListaLivros::class.java))
         }
+
+        btnTodosLivros.setOnClickListener {
+            startActivity(Intent(this, TodosLivros::class.java))
+        }
     }
+
+
 }
