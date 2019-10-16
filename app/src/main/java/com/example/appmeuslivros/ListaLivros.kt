@@ -33,18 +33,6 @@ class ListaLivros : AppCompatActivity() {
         setContentView(R.layout.activity_lista_livros)
 
 
-        autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
-            var selected = adapterView.getItemAtPosition(i).toString()
-
-            var livro = db.livroDAO().findByName(selected)
-
-            txtTitulo.setText(livro.Titulo.toString())
-            txtAutor.setText(livro.Autor.toString())
-            txtAno.setText(livro.Ano.toString())
-            txtNota.setText(livro.Nota.toString())
-        }
-
-
         btnAntes.setOnClickListener {
             cont--
             novoLivro()
@@ -53,6 +41,7 @@ class ListaLivros : AppCompatActivity() {
         btnDepois.setOnClickListener {
             cont++
             novoLivro()
+
         }
 
         btnDeletar.setOnClickListener {
@@ -74,6 +63,20 @@ class ListaLivros : AppCompatActivity() {
             }
             builder.show()
         }
+
+        autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
+            var selected = adapterView.getItemAtPosition(i).toString()
+
+            var livro = db.livroDAO().findByName(selected)
+
+            txtTitulo.setText(livro.Titulo.toString())
+            txtAutor.setText(livro.Autor.toString())
+            txtAno.setText(livro.Ano.toString())
+            txtNota.setText(livro.Nota.toString())
+        }
+        mostrarLivro()
+        autoComplete()
+
     }
 
     fun mostrarLivro() {
@@ -86,6 +89,7 @@ class ListaLivros : AppCompatActivity() {
             btnAntes.visibility = View.VISIBLE
             btnDepois.visibility = View.VISIBLE
             btnDeletar.visibility = View.VISIBLE
+            novoLivro()
 
         } else {
             btnAntes.visibility = View.INVISIBLE
@@ -152,7 +156,7 @@ class ListaLivros : AppCompatActivity() {
         }
 
         var livrosToListAdapter =
-            ArrayAdapter<String>(this, R.layout.activity_todos_livros, livrosAutoComplete)
+            ArrayAdapter<String>(this, R.layout.activity_pesquisar_livro, livrosAutoComplete)
 
         autoCompleteTextView.setAdapter(livrosToListAdapter)
     }

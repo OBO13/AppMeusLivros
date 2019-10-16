@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TodosLivros"></activity>
+        <activity android:name=".PesquisarLivro"></activity>
+        <activity android:name=".TodosLivros" />
         <activity android:name=".Dialogo" />
         <activity android:name=".ListaLivros" />
         <activity android:name=".CadastrarLivro" />
