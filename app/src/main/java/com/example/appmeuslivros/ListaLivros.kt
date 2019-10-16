@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.room.Room
@@ -31,7 +32,7 @@ class ListaLivros : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_livros)
 
-/*
+
         autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
             var selected = adapterView.getItemAtPosition(i).toString()
 
@@ -43,7 +44,7 @@ class ListaLivros : AppCompatActivity() {
             txtNota.setText(livro.Nota.toString())
         }
 
-*/
+
         btnAntes.setOnClickListener {
             cont--
             novoLivro()
@@ -85,7 +86,7 @@ class ListaLivros : AppCompatActivity() {
             btnAntes.visibility = View.VISIBLE
             btnDepois.visibility = View.VISIBLE
             btnDeletar.visibility = View.VISIBLE
-            //novoLivro()
+
         } else {
             btnAntes.visibility = View.INVISIBLE
             btnDepois.visibility = View.INVISIBLE
@@ -142,7 +143,7 @@ class ListaLivros : AppCompatActivity() {
         builder.show()
     }
 
-    /*
+
     fun autoComplete() {
         var livrosAutoComplete = arrayOfNulls<String>(livros.size)
 
@@ -151,11 +152,11 @@ class ListaLivros : AppCompatActivity() {
         }
 
         var livrosToListAdapter =
-            ArrayAdapter<String>(this, R.layout.activity_cadastrar_livro, livrosAutoComplete)
+            ArrayAdapter<String>(this, R.layout.activity_todos_livros, livrosAutoComplete)
 
         autoCompleteTextView.setAdapter(livrosToListAdapter)
     }
-*/
+
     override fun onResume() {
         super.onResume()
         livros.clear()//limpar lista
@@ -167,7 +168,7 @@ class ListaLivros : AppCompatActivity() {
 
         cont = 0
         mostrarLivro()
-        //autoComplete()
+        autoComplete()
     }
 
 }
