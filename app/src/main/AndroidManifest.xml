@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PesquisarLivro"></activity>
+        <activity android:name=".Remove_livro_toc_tela"></activity>
+        <activity android:name=".LivroAdapter2" />
+        <activity android:name=".PesquisarLivro" />
         <activity android:name=".TodosLivros" />
         <activity android:name=".Dialogo" />
         <activity android:name=".ListaLivros" />

@@ -15,7 +15,7 @@ interface LivroDAO {
     fun atualizar(livro: Livro): Int
 
     @Query("SELECT * FROM livro")
-    fun listAll(): List<Livro>
+    fun listAll(): MutableList<Livro>
 
     @Query("SELECT * FROM livro WHERE id = :id")
     fun findById(id: Long): Livro

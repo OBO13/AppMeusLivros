@@ -10,7 +10,9 @@ data class Livro(
     var Autor:String,
     var Ano:Int,
     var Nota:Float
+    //var img: Int
 ) {
+    var bitten:Boolean=false
     @PrimaryKey(autoGenerate = true)
-    var id = 0
+    var id:Long = 0
 }

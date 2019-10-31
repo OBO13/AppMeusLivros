@@ -24,6 +24,10 @@ class MainActivity : AppCompatActivity() {
         btnTodosLivros.setOnClickListener {
             startActivity(Intent(this, TodosLivros::class.java))
         }
+
+        btnToc.setOnClickListener {
+            startActivity(Intent(this, Remove_livro_toc_tela::class.java))
+        }
     }
 
 
