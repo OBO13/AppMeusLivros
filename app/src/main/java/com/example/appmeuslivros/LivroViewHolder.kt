@@ -13,5 +13,7 @@ class LivroViewHolder (v: View) : RecyclerView.ViewHolder(v) {
     init {
         textViewNome = v.findViewById(R.id.nomeLivro)
         img = v.findViewById(R.id.imgLivro)
+
+
     }
 }

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 
-class LivroAdapter2(var c: Context, var livros:List<Livro>) : RecyclerView.Adapter<LivroViewHolder>() {
+class LivroAdapter2(var c: Context, var livros:MutableList<Livro>) : RecyclerView.Adapter<LivroViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LivroViewHolder {
         //Exitem 2 exemplos de layout para ser inflado nessse projeto. Teste os 3.
@@ -19,6 +19,7 @@ class LivroAdapter2(var c: Context, var livros:List<Livro>) : RecyclerView.Adapt
     override fun getItemCount(): Int {
         return livros.size
     }
+
 
     override fun onBindViewHolder(holder: LivroViewHolder, position: Int) {
 

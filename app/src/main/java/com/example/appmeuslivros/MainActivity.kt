@@ -28,6 +28,14 @@ class MainActivity : AppCompatActivity() {
         btnToc.setOnClickListener {
             startActivity(Intent(this, Remove_livro_toc_tela::class.java))
         }
+
+        btn_pos.setOnClickListener {
+            startActivity(Intent(this, Mov_Lat_Hor_excluir::class.java))
+        }
+
+        btn_PV.setOnClickListener {
+            startActivity(Intent(this, PVactivity::class.java))
+        }
     }
 
 
