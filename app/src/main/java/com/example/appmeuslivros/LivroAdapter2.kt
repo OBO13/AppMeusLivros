@@ -25,7 +25,7 @@ class LivroAdapter2(var c: Context, var livros:MutableList<Livro>) : RecyclerVie
 
         val livrotoque = livros[position]
         holder.textViewNome.text = livrotoque.Titulo
-        holder.img.setImageResource(livrotoque.Ano)
+        //holder.img.setImageResource(livrotoque.img)
 
         if (livrotoque.bitten) {
             holder.img.setImageResource(R.drawable.imglistarlivros)
